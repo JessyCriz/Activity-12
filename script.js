@@ -6,7 +6,6 @@ function createTaskItem(taskText) {
     const li = document.createElement("li");
     
     const taskContainer = document.createElement("div");
-    taskContainer.setAttribute("style", "display: flex; justify-content: space-between; align-items: center; padding: 5px;");
 
     const taskTextElement = document.createElement("span");
   taskTextElement.textContent = taskText;
@@ -15,18 +14,16 @@ function createTaskItem(taskText) {
     li.classList.toggle("done");
 });   
 
-    taskContainer.appendChild(taskTextElement);
-    li.appendChild(taskContainer);
-  
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
-    deleteButton.setAttribute("style", "background-color: #ff0000; color: #fff; border: none; cursor: pointer; padding: 5px 10px; border-radius: 50%;");
-  
-    deleteButton.addEventListener("click", () => {
-      taskList.removeChild(li);
-    });
 
-    li.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => {
+        taskList.removeChild(li);
+      });
+
+    taskContainer.appendChild(taskTextElement);
+    taskContainer.appendChild(deleteButton);
+    li.appendChild(taskContainer);
   
     return li;
   }
