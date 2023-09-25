@@ -13,8 +13,17 @@ function createTaskItem(taskText) {
     deleteButton.addEventListener("click", () => {
       taskList.removeChild(li);
     });
+
+    const doneButton = document.createElement("button");
+    doneButton.textContent = "Done";
+    doneButton.classList.add("done-button");
+
+    doneButton.addEventListener("click", () => {
+        li.classList.toggle("done");
+    });
   
     li.appendChild(deleteButton);
+    li.appendChild(doneButton);
   
     li.addEventListener("click", () => {
       li.classList.toggle("done");
