@@ -1,33 +1,32 @@
 const todoInput = document.getElementById("todoInput");
-const addTaskButton = document.getElementById("addTask")
-const taskList = document.getElementById("taskList")
+const addTaskButton = document.getElementById("addTask");
+const taskList = document.getElementById("taskList");
 
 function createTaskItem(taskText) {
     const li = document.createElement("li");
-    li.textContent = taskText;
+    
+    const taskContainer = document.createElement("div");
+    taskContainer.setAttribute("style", "display: flex; justify-content: space-between; align-items: center; padding: 5px;");
+
+    const taskTextElement = document.createElement("span");
+  taskTextElement.textContent = taskText;
+
+  taskTextElement.addEventListener("click", () => {
+    li.classList.toggle("done");
+});   
+
+    taskContainer.appendChild(taskTextElement);
+    li.appendChild(taskContainer);
   
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
-    deleteButton.classList.add("delete-button");
+    deleteButton.setAttribute("style", "background-color: #ff0000; color: #fff; border: none; cursor: pointer; padding: 5px 10px; border-radius: 50%;");
   
     deleteButton.addEventListener("click", () => {
       taskList.removeChild(li);
     });
 
-    const doneButton = document.createElement("button");
-    doneButton.textContent = "Done";
-    doneButton.classList.add("done-button");
-
-    doneButton.addEventListener("click", () => {
-        li.classList.toggle("done");
-    });
-  
     li.appendChild(deleteButton);
-    li.appendChild(doneButton);
-  
-    li.addEventListener("click", () => {
-      li.classList.toggle("done");
-    });
   
     return li;
   }
@@ -38,9 +37,14 @@ function createTaskItem(taskText) {
     if (taskText !== "") {
       const taskItem = createTaskItem(taskText);
       taskList.appendChild(taskItem);
-      todoInput.value = ""; 
+      todoInput.value = "";
     } else {
       alert("Please enter a valid task.");
     }
   });
   
+  todoInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      addTaskButton.click();
+    }
+  });
